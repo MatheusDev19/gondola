@@ -7,7 +7,7 @@ export const Shelf = ({ children, ...rest }: BoxProps) => {
       borderRadius="8px"
       p={1}
       display="flex"
-      flexDirection-="column"
+      flexDirection="column"
       height={400}
       gap={1}
       {...rest}
