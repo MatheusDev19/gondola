@@ -1,22 +1,20 @@
-import { Box, type BoxProps } from "@mui/material";
+import { Stack } from "@mui/material";
+import type { StackProps } from "@mui/material";
 
-export const Module = ({ children, ...rest }: BoxProps) => {
+export const Module = ({ children, ...rest }: StackProps) => {
   return (
-    <Box
+    <Stack
       border="3px solid #4caf50"
       borderRadius="12px"
       p={1}
-      display="flex"
-      flexDirection="column"
+      direction="column"
       gap={2}
       minWidth={300}
       flex={1}
       bgcolor="#ffffff"
-      sx={{
-      }}
       {...rest}
     >
       {children}
-    </Box>
+    </Stack>
   );
 };
