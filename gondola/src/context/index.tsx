@@ -1,16 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 // GondolaContext.tsx
-import React, {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import { v4 as uuidv4 } from "uuid"; // Instale: npm i uuid @types/uuid
-import type { Gondola, Shelf, Module, Product } from "../interface";
+import type { IGondola, IModule, IProduct, IShelf } from "../interface";
 
 interface GondolaContextType {
-  gondola: Gondola;
+  gondola: IGondola;
   addProductToColumn: (
     shelfId: string,
     stackType: "upper" | "lower",
@@ -21,17 +16,17 @@ interface GondolaContextType {
 const GondolaContext = createContext<GondolaContextType | undefined>(undefined);
 
 // --- Helper para criar dados iniciais (Mock) ---
-const createMockGondola = (): Gondola => {
+const createMockGondola = (): IGondola => {
   const createColumns = (count: number) =>
     Array.from({ length: count }).map(() => ({ id: uuidv4(), products: [] }));
 
-  const createShelf = (): Shelf => ({
+  const createShelf = (): IShelf => ({
     id: uuidv4(),
     upperStack: { id: uuidv4(), type: "upper", columns: createColumns(10) }, // Ex: 10 colunas
     lowerStack: { id: uuidv4(), type: "lower", columns: createColumns(10) },
   });
 
-  const createModule = (): Module => ({
+  const createModule = (): IModule => ({
     id: uuidv4(),
     shelves: Array.from({ length: 3 }).map(createShelf), // 3 Prateleiras por módulo
   });
@@ -43,7 +38,7 @@ const createMockGondola = (): Gondola => {
 };
 
 export const GondolaProvider = ({ children }: { children: ReactNode }) => {
-  const [gondola, setGondola] = useState<Gondola>(createMockGondola());
+  const [gondola, setGondola] = useState<IGondola>(createMockGondola());
 
   const addProductToColumn = (
     shelfId: string,
@@ -63,7 +58,7 @@ export const GondolaProvider = ({ children }: { children: ReactNode }) => {
           const updatedColumns = targetStack.columns.map((col) => {
             if (col.id !== columnId) return col;
 
-            const newProduct: Product = {
+            const newProduct: IProduct = {
               id: uuidv4(),
               name: "Prod",
               color: stackType === "upper" ? "#9c27b0" : "#d32f2f", // Roxo ou Vermelho visual
