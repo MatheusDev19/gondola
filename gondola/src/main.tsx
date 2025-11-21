@@ -1,12 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Gondola } from "./Gondola";
 import { GondolaProvider } from "./context";
+import { App } from "./App";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GondolaProvider>
-      <Gondola />
+      <App />
     </GondolaProvider>
   </StrictMode>
 );

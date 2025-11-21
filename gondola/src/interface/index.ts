@@ -1,32 +1,32 @@
-export interface Product {
+export interface IProduct {
   id: string;
   name: string;
   color: string;
 }
 
-export interface ShelfColumn {
+export interface IShelfColumn {
   id: string;
-  products: Product[];
+  products: IProduct[];
 }
 
-export interface ShelfStack {
+export interface IShelfStack {
   id: string;
   type: "upper" | "lower";
-  columns: ShelfColumn[];
+  columns: IShelfColumn[];
 }
 
-export interface Shelf {
+export interface IShelf {
   id: string;
-  upperStack: ShelfStack;
-  lowerStack: ShelfStack;
+  upperStack: IShelfStack;
+  lowerStack: IShelfStack;
 }
 
-export interface Module {
+export interface IModule {
   id: string;
-  shelves: Shelf[];
+  shelves:  IShelf[];
 }
 
-export interface Gondola {
+export interface IGondola {
   id: string;
-  modules: Module[];
+  modules: IModule[];
 }
