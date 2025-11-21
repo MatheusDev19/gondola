@@ -1,3 +1,4 @@
+
 // --- Componentes (Mapeamento de Cores e Layout) ---
 
 import { Box, ButtonBase, Typography } from "@mui/material";
@@ -10,112 +11,104 @@ import type { ShelfColumn } from "./interface";
 
 // 1. GONDOLA (Azul)
 const GondolaContainer = ({ children, sx, ...rest }: BoxProps) => {
+  const defaultSx = {
+    border: "4px solid #2196f3",
+    borderRadius: "16px",
+    p: 2,
+    display: "flex",
+    gap: 2,
+    overflowX: "auto",
+    backgroundColor: "#f5f5f5",
+    minHeight: "80vh",
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
   return (
-    <Box
-      sx={{
-        border: "4px solid #2196f3",
-        borderRadius: "16px",
-        p: 2,
-        display: "flex",
-        gap: 2,
-        overflowX: "auto",
-        backgroundColor: "#f5f5f5",
-        minHeight: "80vh",
-      }}
-      {...rest}
-    >
+    <Box sx={mergedSx} {...rest}>
       {children}
     </Box>
   );
 };
 
 // 2. MÓDULO (Verde)
-const ModuleContainer = ({ children, ...rest }: BoxProps) => {
+const ModuleContainer = ({ children, sx, ...rest }: BoxProps) => {
+  const defaultSx = {
+    border: "3px solid #4caf50",
+    borderRadius: "12px",
+    p: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    minWidth: 300,
+    flex: 1,
+    backgroundColor: "#ffffff",
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
   return (
-    <Box
-      sx={{
-        border: "3px solid #4caf50",
-        borderRadius: "12px",
-        p: 1,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        minWidth: 300,
-        flex: 1,
-        backgroundColor: "#ffffff",
-      }}
-      {...rest}
-    >
+    <Box sx={mergedSx} {...rest}>
       {children}
     </Box>
   );
 };
 
 // 3. PRATELEIRA (Laranja)
-const ShelfContainer = ({ children, ...rest }: BoxProps) => {
+const ShelfContainer = ({ children, sx, ...rest }: BoxProps) => {
+  const defaultSx = {
+    border: "3px solid #ff9800",
+    borderRadius: "8px",
+    p: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: 400,
+    gap: 1,
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
   return (
-    <Box
-      sx={{
-        border: "3px solid #ff9800",
-        borderRadius: "8px",
-        p: 1,
-        display: "flex",
-        flexDirection: "column",
-        height: 400,
-        gap: 1,
-      }}
-      {...rest}
-    >
+    <Box sx={mergedSx} {...rest}>
       {children}
     </Box>
   );
 };
 
 // 4. STACKS (Roxo e Vermelho)
-// BaseStack foi removido (estilos aplicados diretamente nos containers superiores/inferiores)
-
-const UpperStackContainer = (props: BoxProps) => {
-  const { children, ...rest } = props;
+const BaseStack = ({ children, sx, ...rest }: BoxProps) => {
+  const defaultSx = {
+    display: "flex",
+    flexDirection: "row",
+    gap: 1,
+    p: 1,
+    overflowX: "auto",
+    alignItems: "stretch",
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: 1,
-        p: 1,
-        overflowX: "auto",
-        alignItems: "stretch",
-        border: "2px solid #9c27b0",
-        borderRadius: "6px",
-        height: "40%",
-      }}
-      {...rest}
-    >
+    <Box sx={mergedSx} {...rest}>
       {children}
     </Box>
   );
 };
 
+const UpperStackContainer = (props: BoxProps) => {
+  const defaultSx = {
+    border: "2px solid #9c27b0",
+    borderRadius: "6px",
+    height: "40%",
+  };
+  const mergedSx = Array.isArray(props.sx)
+    ? [defaultSx, ...props.sx]
+    : [defaultSx, props.sx];
+  return <BaseStack {...props} sx={mergedSx} />;
+};
+
 const LowerStackContainer = (props: BoxProps) => {
-  const { children, ...rest } = props;
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: 1,
-        p: 1,
-        overflowX: "auto",
-        alignItems: "stretch",
-        border: "2px solid #f44336",
-        borderRadius: "6px",
-        height: "60%",
-      }}
-      {...rest}
-    >
-      {children}
-    </Box>
-  );
+  const defaultSx = {
+    border: "2px solid #f44336",
+    borderRadius: "6px",
+    height: "60%",
+  };
+  const mergedSx = Array.isArray(props.sx)
+    ? [defaultSx, ...props.sx]
+    : [defaultSx, props.sx];
+  return <BaseStack {...props} sx={mergedSx} />;
 };
 
 // 5. COLUNA (Marrom) - aceita isReversed e forwards events como onClick
@@ -123,48 +116,45 @@ type ProductColumnProps = ButtonBaseProps & { isReversed?: boolean };
 const ProductColumnContainer = ({
   isReversed = false,
   children,
+  sx,
   ...rest
 }: ProductColumnProps) => {
+  const defaultSx = {
+    border: "2px solid #795548",
+    borderRadius: "4px",
+    minWidth: 40,
+    flex: 1,
+    display: "flex",
+    flexDirection: isReversed ? "column-reverse" : "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    p: 0.5,
+    gap: 1,
+    backgroundColor: "#fffefe",
+    transition: "background-color 0.2s",
+    "&:hover": {
+      backgroundColor: "#efebe9",
+    },
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
   return (
-    <ButtonBase
-      sx={{
-        border: "2px solid #795548",
-        borderRadius: "4px",
-        minWidth: 40,
-        flex: 1,
-        display: "flex",
-        flexDirection: isReversed ? "column-reverse" : "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        p: 0.5,
-        gap: 1,
-        backgroundColor: "#fffefe",
-        transition: "background-color 0.2s",
-        "&:hover": {
-          backgroundColor: "#efebe9",
-        },
-      }}
-      {...rest}
-    >
+    <ButtonBase sx={mergedSx} {...rest}>
       {children}
     </ButtonBase>
   );
 };
 
 // ITEM DO PRODUTO
-const ProductItem = ({ ...rest }: BoxProps) => {
-  return (
-    <Box
-      sx={{
-        width: "90%",
-        height: 20,
-        backgroundColor: "#333",
-        borderRadius: 2,
-        flexShrink: 0,
-      }}
-      {...rest}
-    />
-  );
+const ProductItem = ({ sx, ...rest }: BoxProps) => {
+  const defaultSx = {
+    width: "90%",
+    height: 20,
+    backgroundColor: "#333",
+    borderRadius: 2,
+    flexShrink: 0,
+  };
+  const mergedSx = Array.isArray(sx) ? [defaultSx, ...sx] : [defaultSx, sx];
+  return <Box sx={mergedSx} {...rest} />;
 };
 
 // --- Componentes Funcionais ---
