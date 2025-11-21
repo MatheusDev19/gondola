@@ -8,7 +8,7 @@ export const Module = ({ children, ...rest }: StackProps) => {
       borderRadius="12px"
       p={1}
       direction="column"
-      gap={2}
+      gap={1} 
       minWidth={300}
       flex={1}
       bgcolor="#ffffff"

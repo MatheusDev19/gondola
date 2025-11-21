@@ -7,7 +7,7 @@ export const Gondola = ({ children, ...rest }: BoxProps) => {
       borderRadius="16px"
       p={2}
       display="flex"
-      gap={2}
+      gap={1}
       minHeight="80vh"
       bgcolor="#f5f5f5"
       sx={{
