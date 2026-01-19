@@ -1,20 +1,40 @@
-import { redirect } from "next/navigation";
-import Form from "next/form"
+'use client'
+// import { auth0 } from "@/lib/auth0";
+// import LoginButton from "@/components/LoginButton";
+// import LogoutButton from "@/components/LogoutButton";
+import { useState } from 'react'
 export default function Home() {
-  // async function submit(formdata: FormData) {
-  //   'use server'
-  //   const search = formdata.get('search') as string
-  //   const params = new URLSearchParams()
-  //   params.append('q', search)
-  //   redirect(`/consultants?${params.toString()}`)
-  // }
-
+  // const session = await auth0.getSession();
+  // const bearer = `Bearer ${session?.tokenSet.accessToken}`
+  // const responseUser = await fetch("https://sharp.kurz.fyi/api/me", {
+  //   headers: {
+  //     Authorization: bearer,
+  //   },
+  // });
+  // const user = session?.user;
+  // const userData = await responseUser.json();
+  const [a, setA] = useState(false)
   return (
-    <div>
-      <Form action={"/consultants"}>
-        <input placeholder="Search" name="search" />
-        <button type="submit">Pesquisar</button>
-      </Form>
+    <div className="app-container">
+      <button onClick={() => setA(true)}>teste</button>
+      <div className="main-card-wrapper">
+        <div className="action-card">
+          { a ? 'aa' : 'bb' }
+          {/* {user ? (
+            <div className="logged-in-section">
+              <p className="logged-in-message">✅ Successfully logged in!</p>
+              <LogoutButton />
+            </div>
+          ) : (
+            <>
+              <p className="action-text">
+                Welcome! Please log in to access your protected content.
+              </p>
+              <LoginButton />
+            </>
+          )} */}
+        </div>
+      </div>
     </div>
   );
 }
